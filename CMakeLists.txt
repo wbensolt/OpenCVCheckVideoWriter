@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 2.6)
+
+PROJECT(openCVCheckVideoWriter)
+
+SET(CMAKE_BUILD_TYPE "Release")
+#SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -Wall -Werror")
+SET(CMAKE_INSTALL_PREFIX /usr)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions("-Wall") 
+    if(NOT WIN32)
+        add_definitions(-fvisibility="hidden")
+    endif(NOT WIN32)
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
+SET(SRC
+main.cpp
+)
+
+FIND_PACKAGE( OpenCV REQUIRED )
+INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIR} )
+
+ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
+
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OpenCV_LIBS})
+
+INSTALL(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
